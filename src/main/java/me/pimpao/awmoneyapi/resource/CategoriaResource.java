@@ -2,6 +2,7 @@ package me.pimpao.awmoneyapi.resource;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -40,8 +41,9 @@ public class CategoriaResource {
 	}
 	
 	@GetMapping(value = "/{codigo}")
-	public Categoria buscarPeloCodigo(@PathVariable Long codigo) {
-		return categoriaRepository.findById(codigo).orElse(null);
+	public ResponseEntity<Categoria> buscarPeloCodigo(@PathVariable Long codigo) {
+		Optional<Categoria> categoriaOptional = categoriaRepository.findById(codigo);			
+		return categoriaOptional.isPresent() ? ResponseEntity.ok(categoriaOptional.get()) : ResponseEntity.notFound().build();		
 	}
 	
 }
