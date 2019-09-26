@@ -25,6 +25,7 @@ import me.pimpao.awmoneyapi.event.RecursoCriadoEvent;
 import me.pimpao.awmoneyapi.exceptionhandler.AwmoneyExceptionHander.Erro;
 import me.pimpao.awmoneyapi.model.Lancamento;
 import me.pimpao.awmoneyapi.repository.LancamentoRepository;
+import me.pimpao.awmoneyapi.repository.filter.LancamentoFilter;
 import me.pimpao.awmoneyapi.service.LancamentoService;
 import me.pimpao.awmoneyapi.service.exception.PessoaInexistenteOuInativaException;
 
@@ -45,8 +46,8 @@ public class LancamentoResource {
 	private MessageSource messageSource;
 	
 	@GetMapping
-	public List<Lancamento> listar() {
-		return lancamentoRepository.findAll();
+	public List<Lancamento> pesquisar(LancamentoFilter lancamentoFilter) {
+		return lancamentoRepository.filtrar(lancamentoFilter);
 	}
 	
 	@GetMapping(value = "/{codigo}")
